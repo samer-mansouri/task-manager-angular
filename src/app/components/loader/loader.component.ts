@@ -1,0 +1,19 @@
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-loader',
+  templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.css']
+})
+export class LoaderComponent implements OnInit {
+
+  @Input('height') height: string = "h-6";
+  @Input('width') width: string = "w-6";
+
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}

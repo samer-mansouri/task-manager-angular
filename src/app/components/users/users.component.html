@@ -1,0 +1,143 @@
+<div class="flex items-center justify-center my-24">
+
+    <div class="w-full mx-8">
+        
+        
+        <div *ngIf="isLoading else table" class="flex h-full items-center justify-center mt-72">
+            <app-loader
+                [height]="'h-20'"
+                [width]="'w-20'"
+            ></app-loader>
+        </div>
+        <ng-template #table>
+            <div class="shadow-xl border border-gray-200  py-4 px-4 mt-16 rounded">
+            <div class="flex items-center justify-between border-b border-gray-200 pb-2 px-4 mb-4">
+                <div class="text-gray-500 font-bold text-lg   ">
+                    Liste des utilisateurs
+                </div>
+                
+                <app-add-user-modal
+                    [type]="'add'"
+                ></app-add-user-modal>
+
+            </div>
+            <input 
+                class="shadow mt-1 mb-3 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+                focus:border-gray-300 focus:shadow-lg
+                " 
+                type="text" 
+                placeholder="Rechercher un utilisateur" 
+                [(ngModel)]="search" 
+                (keyup)="searchUser()" 
+                autocomplete="off" 
+                autocorrect="off" 
+                autocapitalize="off" 
+                spellcheck="false" 
+                >
+            <table id="table"  border="1" class="w-full rounded border border-gray-200 divide-y divide-gray-200 shadow  rounded-md ">
+                <thead class="bg-gray-200">
+                <tr>
+                        <th 
+                        *ngFor="let col of columns"
+                        scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center"
+                        >
+                            {{col.prop}}
+                        </th>
+                    </tr>
+                
+                </thead>
+                <tbody
+                class="bg-white divide-y divide-gray-200"
+                *ngIf="users.length > 0 else err"
+                >
+                    <tr *ngFor="let data of users | paginate: { itemsPerPage: 10, currentPage: p }"
+                        class="hover:bg-gray-100"
+                    >
+                        <td 
+                        *ngFor="let col of columns"
+                        
+                        class="px-6 py-2 whitespace-no-wrap text-sm leading-5 text-gray-900 text-center"
+                        >
+                            <ng-template [ngIf]="col.accessor === 'update'">
+                                <app-add-user-modal
+                                    [user]="data"
+                                    [type]="'edit'"
+
+                                    
+                                ></app-add-user-modal>
+
+                            </ng-template>
+                            <!-- 
+                                <button type="button" class="bg-[#e85656] rounded text-white font-bold py-1 px-4 "
+                                    (click)="deleteUser(data.id)"
+                                >
+                                    Supprimer
+                                </button>
+                            </ng-template> -->
+                            <ng-template [ngIf]="col.accessor === 'delete'">
+                            <app-delete-user-modal
+                                [user]="data"
+                            ></app-delete-user-modal>
+                        </ng-template>
+                            <ng-template [ngIf]="col.accessor !== 'update' && col.accessor !== 'delete'">
+                                <ng-template [ngIf]="col.accessor === 'role'">
+                                    <span *ngIf="data.role === 'ADMIN'">
+                                        Administrateur
+                                    </span>
+                                    <span *ngIf="data.role === 'PROJECT_CHIEF'">
+                                        Chef de projet
+                                    </span>
+                                    <span *ngIf="data.role === 'PROJECT_MEMBER'">
+                                        Membre de projet
+                                    </span>
+                                </ng-template>
+                                <ng-template [ngIf]="col.accessor !== 'role'">
+                                    {{data[col.accessor]}}
+                                </ng-template>
+                            </ng-template>
+
+
+                        </td>
+                    </tr>
+                </tbody>
+                <ng-template #err>
+                    <tr>
+                        <td colspan="9" class="text-center my-4 text-gray-500">
+                            <div class="my-6 text-lg">
+                                Aucun utilisateur trouvé
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </table> 
+
+            <div class="flex justify-end mt-5"
+            *ngIf="users.length > 0"
+            >
+                <pagination-controls 
+                previousLabel=""
+                nextLabel=""
+                (pageChange)="p = $event"></pagination-controls>
+            </div>
+           
+
+           
+            
+            
+
+           
+        </div>
+        <!-- <div *ngFor="let usr of users$ | async">
+            {{usr.id}} | {{usr.firstName    }} | {{usr.lastName}} | {{usr.email}} | {{usr.phone}} 
+        </div> -->
+   <!-- 
+
+                     
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+             -->
+        </ng-template>
+        
+    </div>
+
+</div>

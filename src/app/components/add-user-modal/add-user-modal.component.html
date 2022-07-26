@@ -1,0 +1,187 @@
+ <button class="bg-emerald-600 rounded hover:bg-emerald-800 text-sm text-white font-bold py-2 px-4  focus:outline-none focus:shadow-outline"
+  type="button" (click)="toggleModal()"
+  >
+    <div *ngIf="type === 'add'">
+      Ajouter un utilisateur
+    </div>
+    <div *ngIf="type === 'edit'">Modifier</div>
+</button>
+
+  <div *ngIf="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+    <div class="relative w-auto my-6 mx-auto max-w-2xl">
+      <!--content-->
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <!--header-->
+        <div class="flex items-start justify-between px-5 py-4 border-b border-solid border-slate-200 rounded-t">
+          <h3 class="text-md text-gray-500 font-semibold">
+            <fa-icon *ngIf="type === 'add'" class="mr-2" [icon]="faUserPlus" size="lg"></fa-icon>
+            <fa-icon *ngIf="type === 'edit'" class="mr-2" [icon]="faUserPen" size="lg"></fa-icon>
+            <span *ngIf="type === 'add'">
+              Ajouter un utilisateur
+            </span>
+            <span *ngIf="type === 'edit'">Modifier un utilisateur</span>
+          </h3>
+          <button class="text-gray-400 mr-4 hover:text-gray-500 focus:outline-none focus:text-gray-500" (click)="toggleModal()">
+            <fa-icon [icon]="faXmark" size="lg"></fa-icon>
+          </button>
+        </div>
+        <!--body-->
+        <form 
+                [formGroup]="addUserForm" 
+                (submit)="onSubmit()" 
+            >
+        <div class="relative p-6 flex-auto">
+            
+            <div class="flex flex-wrap">
+              <label for="firstName" class="font-bold uppercase text-xs text-gray-500">
+                Nom
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="firstName"
+                placeholder="Nom"
+                required
+              />
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="lastName" class="font-bold uppercase text-xs text-gray-500">
+                Prénom
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="lastName"
+                placeholder="Prénom"
+                required
+              />
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="email" class="font-bold uppercase text-xs text-gray-500">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <div class="flex flex-wrap mt-4">
+              <label for="phone" class="font-bold uppercase text-xs text-gray-500">
+                Téléphone
+              </label>
+              <input
+                type="text"
+                name="phone"
+                id="phone"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="phone"
+                placeholder="Téléphone"
+                required
+              />
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="address" class="font-bold uppercase text-xs text-gray-500">
+                Adresse
+              </label>
+              <input
+                type="text"
+                name="address"
+                id="address"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="address"
+                placeholder="Adresse"
+                required
+              />
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="fonction" class="font-bold uppercase text-xs text-gray-500">
+                Fonction
+              </label>
+              <input
+                type="text"
+                name="fonction"
+                id="fonction"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="fonction"
+                placeholder="Fonction"
+                required
+              />
+            </div>
+
+            <div class="flex flex-wrap mt-4">
+              <label for="role" class="font-bold uppercase text-xs text-gray-500">
+                Rôle
+              </label>
+              <select
+                name="role"
+                id="role"
+                class="border border-gray-300 p-2 w-full mt-1 px-4 bg-white  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="role"
+                required
+              >
+                <option value=""
+                class="text-gray-500"
+                >
+                Sélectionner un rôle
+              </option>
+                <option *ngFor="let role of roles" [value]="role.value">
+                  {{ role.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="flex flex-wrap mt-4"
+            *ngIf="type === 'add'"
+            >
+              <label for="password" class="font-bold uppercase text-xs text-gray-500">
+                Mot de passe
+              </label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                  formControlName="password"
+                placeholder="Mot de passe"
+                required
+                
+              />
+            </div>
+
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-end px-6 py-3 border-t border-solid border-slate-200 rounded-b">
+          <button class="text-white rounded bg-gray-500 hover:bg-gray-700 font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+            Fermer
+          </button>
+          <button class="bg-emerald-600 hover:bg-emerald-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
+            <div *ngIf="isLoading else loader">
+              <app-loader
+                [height]="'h-4'"
+                [width]="'w-4'"
+              ></app-loader>
+              
+            </div>
+            <ng-template #loader>
+              Enregistrer
+            </ng-template>
+          </button>
+
+        </div>
+      </form>
+
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>

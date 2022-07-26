@@ -1,0 +1,78 @@
+<div class="flex">
+    <div class="w-full h-screen flex   items-center justify-center bg-gray-200">
+        <div class="shadow-xl rounded  py-12 px-16 flex flex-col items-center bg-white">
+            <h2
+                class="text-lg  font-bold text-center text-gray-500 mb-4">
+            SE CONNECTER À VOTRE COMPTE</h2>
+          
+            <div class="bg-gray-200 w-full h-0.5 shadow-xl"></div>
+            <form class="mt-4"
+             [formGroup]="loginForm"
+             (submit)="onSubmit()"
+            >
+                <div class="flex flex-wrap w-96">
+                    <label for="email" class="font-bold uppercase text-sm text-gray-500">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        class="border border-gray-300 p-2 w-full mt-1 px-4 
+                        rounded
+                         focus:outline-none focus:bg-white focus:border-gray-400
+                        "
+                        formControlName="email"
+                        placeholder="Email"
+                        required />
+                    <!-- <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                        <div *ngIf="email.errors?.required">
+                            <p class="text-red-500 text-xs italic">
+                                Le champ est obligatoire
+                            </p>
+                        </div>
+                        <div *ngIf="email.errors?.email">
+                            <p class="text-red-500 text-xs italic">
+                                Le format de l'email est incorrect
+                            </p>
+                        </div>
+                    </div> -->
+                </div>
+    
+                <div class="flex flex-wrap w-96 mt-4">
+                    <label for="password" class="font-bold uppercase text-sm text-gray-500">Mot de passe</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        formControlName="password"
+                        class="border border-gray-300 rounded p-2 w-full mt-1 px-4 focus:outline-none focus:bg-white focus:border-gray-400"
+                        placeholder="Mot de passe"
+                        required />
+                </div>
+    
+                <div class="flex flex-wrap  mt-4">
+                    <button
+                        type="submit"
+                        class="bg-emerald-600 hover:bg-emerald-800 hover:cursor-pointer rounded w-96 uppercase  text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline">
+                        <div *ngIf="isLoading else loader">
+                            <app-loader></app-loader>
+                        </div>
+                        <ng-template #loader>
+                            Connexion
+                        </ng-template>
+                            
+                    </button>
+                </div>
+            </form>
+    
+         
+    
+    
+    </div>
+    <!-- <div
+        class="shadow-xl"
+    >
+        <img
+        class="max-w-2xl"
+         src="https://startinfinity.s3.us-east-2.amazonaws.com/production/blog/post/5/main/1SvzKctRCi8bwB0QPdOZkBP0pRhsOqZpl0wjs6y0.png" />
+    </div> -->
+</div>

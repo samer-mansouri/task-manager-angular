@@ -1,0 +1,54 @@
+<button class="bg-[#e85656] rounded hover:bg-bg-[#e85670] text-sm text-white font-bold py-1 px-4  focus:outline-none focus:shadow-outline"
+type="button" (click)="toggleModal()"
+>
+    Supprimer
+</button>
+<div *ngIf="showModal" class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+  <div class="relative w-auto my-6 mx-auto max-w-2xl">
+    <!--content-->
+    <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+      <!--header-->
+      <div class="flex items-start justify-between px-5 py-4 border-b border-solid border-slate-200 rounded-t">
+        <h3 class="text-md text-gray-500 font-semibold">
+          <fa-icon  class="mr-2" [icon]="faUserMinus" size="lg"></fa-icon>  
+          Supprimer un utilisateur
+        </h3>
+        <button class="text-gray-400 mr-4 hover:text-gray-500 focus:outline-none focus:text-gray-500" (click)="toggleModal()">
+          <fa-icon [icon]="faXmark" size="lg"></fa-icon>
+        </button>
+      </div>
+      <!--body-->
+   
+      <div class="relative p-6 flex-auto text-md text-gray-500">
+          
+         Vous êtes sur le point de supprimer un utilisateur.
+
+      </div>
+      <!--footer-->
+      <div class="flex items-center justify-end px-6 py-3 border-t border-solid border-slate-200 rounded-b">
+        <button class="text-white rounded bg-gray-500 hover:bg-gray-700 font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
+          Fermer
+        </button>
+        <button class="bg-[#e85656] 
+        text-white  font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button"
+        (click)="deleteUser()"
+        >
+          <div *ngIf="isLoading else loader">
+            <app-loader
+              [height]="'h-4'"
+              [width]="'w-4'"
+            ></app-loader>
+            
+          </div>
+          <ng-template #loader>
+            Supprimer
+          </ng-template>
+        </button>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>

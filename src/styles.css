@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ngx-pagination {
+    padding-left: 0px !important;
+  }
+  
+  .ngx-pagination .current,
+  .btn-info {
+    background: rgb(5, 150, 105) !important;
+    border: transparent !important;
+  }
+  
+  .ngx-pagination .current:hover {
+    background: rgb(5, 150, 105) !important;
+    border: transparent !important;
+    cursor: pointer;
+  }

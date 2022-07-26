@@ -1,0 +1,59 @@
+<div class="h-screen w-full flex">
+    <div class="h-full w-1/6  bg-gray-300">
+            <div class="text-gray-700 text-center pt-14 pb-14 bg-gray-300">
+                <h1 class="uppercase font-bold text-xl">ADMINISTRATION</h1>
+            </div>
+
+            <hr />
+            <div class="mt-4">
+                    <div routerLink="/accueil"  
+                        routerLinkActive="text-emerald-600 bg-white"
+                    class="mx-4 mb-1 flex items-center rounded  justify-start px-8 py-3 text-gray-700  hover:text-emerald-600 cursor-pointer hover:bg-white  transition duration-300">
+                        <fa-icon class=" mr-4 text-md" [icon]="faHouse" size="lg"></fa-icon>
+                        <span class="text-lg">
+                            Accueil
+                        </span>
+                    </div>
+                    <div 
+                    routerLink="/utilisateurs" 
+                    routerLinkActive="text-emerald-600 bg-white"
+                    class="mx-4 mb-1 flex items-center rounded justify-start px-8 py-3 text-gray-700  hover:text-emerald-600 cursor-pointer hover:bg-white transition duration-300">
+                        <fa-icon class=" mr-4 text-md" [icon]="faUsers" size="lg"></fa-icon>
+                        <span class="text-lg">
+                            Utilisateurs
+                        </span>
+                    </div>
+                    <div class="mx-4 mb-1 flex mt-1 rounded items-center justify-start px-8 py-3 text-gray-700  hover:text-emerald-600 cursor-pointer hover:bg-white transition duration-300">
+                        <fa-icon class=" mr-4 text-md" [icon]="faDiagramProject" size="lg"></fa-icon>
+                        <span class="text-lg">
+                            Projets
+                        </span>
+                    </div>
+                    <div class="mx-4 mb-1 flex mt-1 rounded items-center justify-start px-8 py-3 text-gray-700  hover:text-emerald-600 cursor-pointer hover:bg-white transition duration-300">
+                        <fa-icon class=" mr-4 text-md" [icon]="faLayerGroup" size="lg"></fa-icon>
+                        <span class="text-lg">
+                            Modules
+                        </span>
+                    </div>
+                    <div class="mx-4 mb-1 flex mt-1 rounded items-center justify-start px-8 py-3 text-gray-700  hover:text-emerald-600 cursor-pointer hover:bg-white transition duration-300">
+                        <fa-icon class=" mr-4 text-md" [icon]="faListCheck" size="lg"></fa-icon>
+                        <span class="text-lg">
+                            Tâches
+                        </span>
+                    </div>
+                    <div class="mx-4 mb-1 flex mt-1 rounded items-center justify-start px-8 py-3 text-gray-700  hover:text-emerald-600 cursor-pointer hover:bg-white transition duration-300">
+                        <fa-icon class=" mr-4 text-md" [icon]="faGear" size="lg"></fa-icon>
+                        <span class="text-lg">
+                            Paramètres
+                        </span>
+                    </div>
+
+
+            
+      </div>
+    </div>
+    <div class="h-full w-5/6">
+        <router-outlet></router-outlet>
+    </div>
+    
+</div>
