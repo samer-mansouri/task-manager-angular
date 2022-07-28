@@ -1,0 +1,486 @@
+<div class="flex items-center justify-center my-2">
+
+    <div class="w-full mx-8  overflow-y-auto">
+
+      
+        
+        <div class="shadow-xl border border-gray-200  py-4 px-4 mt-16 rounded"
+        
+        >
+          <div
+          *ngIf="update === 'infos'"
+
+          >
+            <div 
+            class="flex items-center justify-between border-b border-gray-200 pb-2 px-4 mb-4">
+            <div class="text-gray-500 font-bold text-lg   ">
+                Mes informations
+            </div>
+            
+            
+
+            
+            
+
+        </div>
+
+        <div class="px-4">
+          <div class="flex">
+            <div class="text-gray-500 font-bold mt-1">
+              Nom : 
+  
+              <span
+              class="text-gray-600 font-medium"
+              >{{currentUser.firstName}}</span>
+            </div>
+          </div>
+
+          <div class="flex">
+            <div class="text-gray-500 font-bold mt-1">
+              Prénom : 
+  
+              <span
+              class="text-gray-600 font-medium"
+              >{{currentUser.lastName}}</span>
+            </div>
+          </div>
+
+          <div class="flex">
+            <div class="text-gray-500 font-bold mt-1">
+              Email : 
+  
+              <span
+              class="text-gray-600 font-medium"
+              >{{currentUser.email}}</span>
+            </div>
+          </div>
+          
+          <div class="flex">
+            <div class="text-gray-500 font-bold mt-1">
+              Téléphone :
+  
+              <span
+              class="text-gray-600 font-medium"
+              >{{currentUser.phone}}</span>
+            </div>
+          </div>
+
+          <div class="flex">
+            <div class="text-gray-500 font-bold mt-1">
+              Adresse : 
+  
+              <span
+              class="text-gray-600 font-medium "
+              >{{currentUser.address}}</span>
+            </div>
+          </div>
+
+          <div class="flex">
+            <div class="text-gray-500 font-bold mt-1">
+              Fonction : 
+  
+              <span
+              class="text-gray-600 font-medium"
+              >{{currentUser.fonction}}</span>
+            </div>
+          </div>
+
+          <div class="flex">
+            <div class="text-gray-500 font-bold mt-1">
+              Rôle : 
+  
+              <span
+              class="text-gray-600 font-medium"
+              >{{currentUser.role}}</span>
+            </div>
+          </div>
+
+        
+
+        </div>
+      </div>
+
+        <div
+          *ngIf="update === 'data'"
+        >
+            <div class="flex items-center justify-between border-b border-gray-200 pb-2 px-4 mb-4"
+            >
+                <div class="text-gray-500 font-bold text-lg   ">
+                    Modifier mes informations
+                </div>
+
+
+                
+                
+
+            </div>
+            <div *ngIf="isSuccess" class="mx-9">
+              <app-alert
+              [color]="'bg-green-600'"
+              [message]="'Vos informations ont été mises à jour avec succès !'"
+            ></app-alert>              
+            </div>
+            <form 
+                [formGroup]="updateUserForm" 
+                (submit)="onSubmit()" 
+            >
+        <div class="relative p-6 flex-auto">
+            
+            <div class="flex inline flex-wrap">
+              <label for="firstName" class="font-bold uppercase text-xs text-gray-500">
+                Nom
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                class="border  border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="firstName"
+                placeholder="Nom"
+                required
+              />
+              <div *ngIf="updateUserForm.get('firstName')?.status === 'INVALID' && (updateUserForm?.get('firstName')?.dirty || updateUserForm?.get('firstName')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserForm.get('firstName')?.errors!['required']">
+                  Le nom est requis.
+                </div>
+                <div *ngIf="updateUserForm.get('firstName')?.errors!['minlength']">
+                  Le nom doit contenir au moins 2 caractères.
+                </div>
+                <div *ngIf="updateUserForm.get('firstName')?.errors!['maxlength']">
+                  Le nom doit contenir au maximum 20 caractères.
+                </div>
+                
+
+              </div>
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="lastName" class="font-bold uppercase text-xs text-gray-500">
+                Prénom
+              </label>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="lastName"
+                placeholder="Prénom"
+                required
+              />
+              <div *ngIf="updateUserForm.get('lastName')?.status === 'INVALID' && (updateUserForm?.get('lastName')?.dirty || updateUserForm?.get('lastName')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserForm.get('lastName')?.errors!['required']">
+                  Le prénom est requis.
+                </div>
+                <div *ngIf="updateUserForm.get('lastName')?.errors!['minlength']">
+                  Le prénom doit contenir au moins 2 caractères.
+                </div>
+                <div *ngIf="updateUserForm.get('lastName')?.errors!['maxlength']">
+                  Le prénom doit contenir au maximum 20 caractères.
+                </div>
+                
+
+              </div>
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="email" class="font-bold uppercase text-xs text-gray-500">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="email"
+                placeholder="Email"
+                required
+              />
+              <div *ngIf="updateUserForm.get('email')?.status === 'INVALID' && (updateUserForm?.get('email')?.dirty || updateUserForm?.get('email')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserForm.get('email')?.errors!['required']">
+                  L'adresse email est requise.
+                </div>
+                <div *ngIf="updateUserForm.get('email')?.errors!['email']">
+                  L'adresse email n'est pas valide.
+                </div>
+                
+
+              </div>
+            </div>
+
+            <div class="flex flex-wrap mt-4">
+              <label for="phone" class="font-bold uppercase text-xs text-gray-500">
+                Téléphone
+              </label>
+              <input
+                type="text"
+                name="phone"
+                id="phone"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="phone"
+                placeholder="Téléphone"
+                required
+              />
+              <div *ngIf="updateUserForm.get('phone')?.status === 'INVALID' && (updateUserForm?.get('phone')?.dirty || updateUserForm?.get('phone')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserForm.get('phone')?.errors!['required']">
+                  Le numéro de téléphone est requis.
+                </div>
+                <div *ngIf="updateUserForm.get('phone')?.errors!['minlength']">
+                  Le nom doit contenir 8 chiffres.
+                </div>
+                <div *ngIf="updateUserForm.get('phone')?.errors!['maxlength']">
+                  Le nom doit contenir 8 chiffres.
+                </div>
+                <div *ngIf="updateUserForm.get('phone')?.errors!['pattern']">
+                  Le numéro de téléphone doit contenir uniquement des chiffres.
+                </div>
+
+              </div>
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="address" class="font-bold uppercase text-xs text-gray-500">
+                Adresse
+              </label>
+              <input
+                type="text"
+                name="address"
+                id="address"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="address"
+                placeholder="Adresse"
+                required
+              />
+              <div *ngIf="updateUserForm.get('address')?.status === 'INVALID' && (updateUserForm?.get('address')?.dirty || updateUserForm?.get('address')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserForm.get('address')?.errors!['required']">
+                  L'adresse est requise.
+                </div>
+                <div *ngIf="updateUserForm.get('address')?.errors!['minlength']">
+                  L'adresse doit contenir au moins 2 caractères.
+                </div>
+                <div *ngIf="updateUserForm.get('address')?.errors!['maxlength']">
+                  L'adresse doit contenir au maximum 30 caractères.
+                </div>
+
+              </div>
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="fonction" class="font-bold uppercase text-xs text-gray-500">
+                Fonction
+              </label>
+              <input
+                type="text"
+                name="fonction"
+                id="fonction"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="fonction"
+                placeholder="Fonction"
+                required
+              />
+              <div *ngIf="updateUserForm.get('fonction')?.status === 'INVALID' && (updateUserForm?.get('fonction')?.dirty || updateUserForm?.get('fonction')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserForm.get('fonction')?.errors!['required']">
+                  La fonction est requise.
+                </div>
+                <div *ngIf="updateUserForm.get('fonction')?.errors!['minlength']">
+                  La fonction doit contenir au moins 2 caractères.
+                </div>
+                <div *ngIf="updateUserForm.get('fonction')?.errors!['maxlength']">
+                  La fonction doit contenir au maximum 20 caractères.
+                </div>
+
+              </div>
+            </div>
+
+
+          
+
+        </div>
+        <!--footer-->
+        <div class="flex items-center justify-end px-6 py-3 border-t border-solid border-slate-200 rounded-b">
+         
+          <button 
+          [disabled]="!updateUserForm.valid"
+          class="bg-emerald-600 hover:bg-emerald-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
+            <div *ngIf="isLoading else loader">
+              
+              <app-loader
+                [height]="'h-4'"
+                [width]="'w-4'"
+              ></app-loader>
+              
+              
+            </div>
+            <ng-template #loader>
+              Enregistrer
+              
+            </ng-template>
+          </button>
+
+        </div>
+      </form>
+      
+    </div>
+
+    <div
+    *ngIf="update === 'password'" 
+    >
+    <div class="flex items-center justify-between border-b border-gray-200 pb-2 px-4 mb-4"
+        
+    >
+              <div class="text-gray-500 font-bold text-lg   ">
+                Modifier mon mot de passe
+            </div>
+      </div>
+      <div>
+        <div  *ngIf="successPasswordUpdate" class="mx-9">
+          <app-alert
+          [color]="'bg-green-600'"
+          [message]="'Votre mot de passe a été modifié avec succès.'"
+        ></app-alert>              
+        </div>
+        <div  *ngIf="errorPasswordUpdate" class="mx-9">
+          <app-alert
+          [color]="'bg-red-600'"
+          [message]="'Mot de passe incorrect.'"
+        ></app-alert>              
+        </div>
+        
+            <form
+                [formGroup]="updateUserPasswordForm"
+                (ngSubmit)="updatePassword()"
+            >
+            <div class="flex flex-wrap mt-4">
+              <label for="oldPassword" class="font-bold uppercase text-xs text-gray-500">
+                Mot de passe actuel
+              </label>
+              <input
+                type="password"
+                name="oldPassword"
+                id="oldPassword"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="oldPassword"
+                placeholder="Mot de passe actuel"
+                required
+              />
+              <div *ngIf="updateUserPasswordForm.get('oldPassword')?.status === 'INVALID' && (updateUserPasswordForm?.get('oldPassword')?.dirty || updateUserPasswordForm?.get('oldPassword')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserPasswordForm.get('oldPassword')?.errors!['required']">
+                  Le mot de passe actuel est requis
+                </div>
+
+
+              </div>
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="newPassword" class="font-bold uppercase text-xs text-gray-500">
+                Nouveau mot de passe
+              </label>
+              <input
+                type="password"
+                name="newPassword"
+                id="newPassword"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="newPassword"
+                placeholder="Nouveau mot de passe"
+                required
+              />
+              <div *ngIf="updateUserPasswordForm.get('newPassword')?.status === 'INVALID' && (updateUserPasswordForm?.get('newPassword')?.dirty || updateUserPasswordForm?.get('newPassword')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserPasswordForm.get('newPassword')?.errors!['required']">
+                  Le mot de passe actuel est requis
+                </div>
+                <div *ngIf="updateUserPasswordForm.get('newPassword')?.errors!['minlength']">
+                  Le mot de passe doit contenir au moins 8 caractères
+                </div>
+                <div *ngIf="updateUserPasswordForm.get('newPassword')?.errors!['maxlength']">
+                  Le mot de passe doit contenir au maximum 20 caractères
+                </div>
+
+
+              </div>
+            </div>
+            <div class="flex flex-wrap mt-4">
+              <label for="confirmNewPassword" class="font-bold uppercase text-xs text-gray-500">
+                Confirmation du nouveau mot de passe
+              </label>
+              <input
+                type="password"
+                name="confirmNewPassword"
+                id="confirmNewPassword"
+                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+                formControlName="confirmNewPassword"
+                placeholder="Confirmation du nouveau mot de passe"
+                required
+              />
+              <div *ngIf="updateUserPasswordForm.get('confirmNewPassword')?.status === 'INVALID' && (updateUserPasswordForm?.get('confirmNewPassword')?.dirty || updateUserPasswordForm?.get('confirmNewPassword')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="updateUserPasswordForm.get('confirmNewPassword')?.errors!['required']">
+                  La confirmation du nouveau mot de passe est requise
+                </div>
+
+
+              </div>
+              <div *ngIf="updateUserPasswordForm.hasError('invalidComparaison')" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                Les mots de passe ne correspondent pas
+                </div>
+
+
+            </div>
+
+            <div class="flex items-center justify-end px-6 py-3 border-t border-solid border-slate-200 rounded-b">
+         
+              <button 
+              [disabled]="!updateUserPasswordForm.valid"
+              class="bg-emerald-600 hover:bg-emerald-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
+                <div *ngIf="isLoading else loader">
+                  
+                  <app-loader
+                    [height]="'h-4'"
+                    [width]="'w-4'"
+                  ></app-loader>
+                  
+                  
+                </div>
+                <ng-template #loader>
+                  Enregistrer
+                  
+                </ng-template>
+              </button>
+    
+            </div>
+          </form>
+
+
+      </div>
+    </div>
+
+    
+
+
+
+        <div class="flex justify-end mt-2"
+        *ngIf="update === 'infos' else cond"
+        >
+          <button class="bg-emerald-600 hover:bg-emerald-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 self-end"
+          (click)="toggleUpdate('data')"
+        >
+          Modifier mes informations
+        </button>
+        <button class="bg-emerald-600 hover:bg-emerald-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 self-end"
+          (click)="toggleUpdate('password')"
+        >
+          Modifier mon mot de passe
+        </button>
+        </div>
+
+        <ng-template #cond>
+          <div class="flex justify-end mr-6"
+        >
+          <button class="bg-emerald-600 hover:bg-emerald-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 self-end"
+          (click)="toggleUpdate('infos')"
+        >
+          Retourner
+        </button>
+        </div>
+        </ng-template>
+
+      </div>
+      
+
+
+
+    </div>
+</div>

@@ -57,4 +57,25 @@ export class DataService {
       return throwError(err);
     }));
   }
+
+  getUser() {
+    let id = JSON.parse(localStorage.getItem('user') || "a").id;
+    return this.http.get<User>(`${this.API_URL}/user/${id}`)
+    .pipe(catchError((err) => {
+      console.log(err);
+      return throwError(err);
+    }));
+  }
+
+  updateUserPassword(data: any) {
+    let dataToSend = new URLSearchParams(data);
+    return this.http.post(`${this.API_URL}/update_password`, dataToSend,
+    
+    { headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' }) } 
+    )
+    .pipe(catchError((err) => {
+      console.log(err);
+      return throwError(err);
+    }));
+  }
 }

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { faUserPlus, faXmark, faUserPen } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../services/data.service';
-import { StoreService } from '../../services/store.service';
 import { appendUser, updateUser } from 'src/app/store/users/users.actions';
 import { Store } from '@ngrx/store';
 import { User } from 'src/app/model/User';
@@ -18,6 +17,9 @@ export class AddUserModalComponent implements OnInit {
   faXmark = faXmark;
   faUserPen = faUserPen;
   isLoading = false;
+  isSuccess = false;
+  isError : boolean = false;
+
 
   @Input('user') user: any;
   @Input('type') type: string | undefined; 
@@ -37,14 +39,14 @@ export class AddUserModalComponent implements OnInit {
   ]
 
   addUserForm : FormGroup = new FormGroup({
-    firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]),
-    lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]*')]),
-    address: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]),
-    fonction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9 ]*')]),
-    role: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z ]*')]),
+    phone: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8), Validators.pattern('[0-9]*')]),
+    address: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+    fonction: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+    password: new FormControl('12345678', [Validators.required, Validators.minLength(8), Validators.maxLength(55)]),
+    role: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
   });
 
   
@@ -56,13 +58,14 @@ export class AddUserModalComponent implements OnInit {
   }
 
   constructor(private dataService: DataService, 
-    private storeService: StoreService,
     private store: Store<{users: User[]}>
     ) { }
 
   onSubmit() : void {
     //console.log(this.addUserForm.value);
     this.isLoading = true;
+
+    //if form type is edit
     if(this.type === 'edit') {
       let dataToSend = {
         id: this.user.id,
@@ -78,19 +81,50 @@ export class AddUserModalComponent implements OnInit {
         data => {
           console.log(data);
           this.store.dispatch(updateUser({user: data.user}));
-          this.toggleModal();
           this.isLoading = false;
+          this.isSuccess = true;
+          setTimeout(() => {
+            this.isSuccess = false;
+            this.toggleModal();
+          }, 3000);
         }
       )
     } else {
+
+      //if form type is add
       this.dataService.createUser(this.addUserForm.value).subscribe(
         data => {
           console.log(data);
           //this.storeService.addUser(data);
           this.store.dispatch(appendUser({user: data}));
-          this.toggleModal();
           this.isLoading = false;
-        })
+          this.isSuccess = true;
+          setTimeout(() => {
+            this.isSuccess = false;
+            this.toggleModal();
+          }, 3000);
+        },
+        
+        error => {
+          if (error.status === 400) {
+            this.isLoading = false;
+            this.isError = true;
+            setTimeout(() => {
+              this.isError = false;
+            }, 3000);
+          }
+
+          // this.isLoading = false;
+          // this.isSuccess = false;
+        }
+        
+        
+        
+        
+        
+        )
+
+        
     }
     
   }
@@ -103,6 +137,10 @@ export class AddUserModalComponent implements OnInit {
     if(this.type === 'edit') {
       this.addUserForm.patchValue(this.user);
     }
+  }
+
+  logForm() : void {
+    console.log(this.addUserForm.value);
   }
 
 }

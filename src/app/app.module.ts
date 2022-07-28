@@ -26,6 +26,10 @@ import { DeleteUserModalComponent } from './components/delete-user-modal/delete-
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoaderComponent } from './components/loader/loader.component';
+import { LoginGuard } from './auth/login-guard.service';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { ConfirmPasswordValidator } from 'src/validators/confirm-password.validator';
 
 
 @NgModule({
@@ -38,6 +42,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     AddUserModalComponent,
     DeleteUserModalComponent,
     LoaderComponent,
+    UpdateUserComponent,
+    AlertComponent,
     
   ],
   imports: [
@@ -62,7 +68,9 @@ import { LoaderComponent } from './components/loader/loader.component';
       multi: true
     },
     AuthChecker,
-    AuthGuardService
+    AuthGuardService,
+    LoginGuard,
+    ConfirmPasswordValidator
   ],
   bootstrap: [AppComponent]
 })

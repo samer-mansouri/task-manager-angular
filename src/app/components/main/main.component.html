@@ -1,5 +1,5 @@
 <div class="h-screen w-full flex">
-    <div class="h-full w-1/6  bg-gray-300">
+    <div class="relative h-full w-1/6  bg-gray-300">
             <div class="text-gray-700 text-center pt-14 pb-14 bg-gray-300">
                 <h1 class="uppercase font-bold text-xl">ADMINISTRATION</h1>
             </div>
@@ -41,16 +41,29 @@
                             Tâches
                         </span>
                     </div>
-                    <div class="mx-4 mb-1 flex mt-1 rounded items-center justify-start px-8 py-3 text-gray-700  hover:text-emerald-600 cursor-pointer hover:bg-white transition duration-300">
+                    <div 
+                    routerLink="/settings" 
+                    routerLinkActive="text-emerald-600 bg-white"
+                    class="mx-4 mb-1 flex mt-1 rounded items-center justify-start px-8 py-3 text-gray-700  hover:text-emerald-600 cursor-pointer hover:bg-white transition duration-300">
                         <fa-icon class=" mr-4 text-md" [icon]="faGear" size="lg"></fa-icon>
                         <span class="text-lg">
                             Paramètres
                         </span>
                     </div>
 
-
+                    
             
       </div>
+      <div class="absolute w-full bottom-0 bg-gray-600 h-16 flex items-center justify-center text-gray-200 hover:cursor-pointer
+      hover:text-gray-600 hover:bg-gray-400 transition duration-300
+      "
+      (click)="logout()"
+      >
+        <div>
+            <fa-icon class=" mr-2 text-md" [icon]="faRightFromBracket" size="lg"></fa-icon>
+        <span>Se décconecter</span>
+        </div>
+     </div>
     </div>
     <div class="h-full w-5/6">
         <router-outlet></router-outlet>

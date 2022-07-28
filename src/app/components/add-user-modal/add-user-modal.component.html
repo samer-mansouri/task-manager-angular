@@ -26,101 +26,216 @@
           </button>
         </div>
         <!--body-->
+
+        <div class="mx-2 mt-4"
+          *ngIf="isSuccess"
+        >
+          <div *ngIf="type === 'add'">
+              <app-alert
+              [color]="'bg-green-600'"
+              [message]="'Utilisateur ajouté avec succès'"
+            ></app-alert>
+          </div>
+          <div *ngIf="type === 'edit'">
+              <app-alert
+              [color]="'bg-green-600'"
+              [message]="'Utilisateur modifié avec succès'"
+            ></app-alert>
+          </div>
+
+
+        </div>
+
+        <div class="mx-2 mt-4"
+        *ngIf="isError"
+        >
+          <div *ngIf="type === 'add'">
+              <app-alert
+              [color]="'bg-red-600'"
+              [message]="'Adresse email déjà utilisée'"
+            ></app-alert>
+          </div>
+          <div *ngIf="type === 'edit'">
+              <app-alert
+              [color]="'bg-red-600'"
+              [message]="'Adresse email déjà utilisée'"
+            ></app-alert>
+          </div>
+
+        </div>
         <form 
                 [formGroup]="addUserForm" 
                 (submit)="onSubmit()" 
+                class="overflow-y-auto"
             >
+
+
         <div class="relative p-6 flex-auto">
             
-            <div class="flex flex-wrap">
-              <label for="firstName" class="font-bold uppercase text-xs text-gray-500">
-                Nom
-              </label>
-              <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
-                formControlName="firstName"
-                placeholder="Nom"
-                required
-              />
-            </div>
-            <div class="flex flex-wrap mt-4">
-              <label for="lastName" class="font-bold uppercase text-xs text-gray-500">
-                Prénom
-              </label>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
-                formControlName="lastName"
-                placeholder="Prénom"
-                required
-              />
-            </div>
-            <div class="flex flex-wrap mt-4">
-              <label for="email" class="font-bold uppercase text-xs text-gray-500">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
-                formControlName="email"
-                placeholder="Email"
-                required
-              />
-            </div>
+          <div class="flex flex-wrap">
+            <label for="firstName" class="font-bold uppercase text-xs text-gray-500">
+              Nom <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+              formControlName="firstName"
+              placeholder="Nom"
+              required
+            />
+            <div *ngIf="addUserForm.get('firstName')?.status === 'INVALID' && (addUserForm?.get('firstName')?.dirty || addUserForm?.get('firstName')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500 w-full">
+              <div *ngIf="addUserForm.get('firstName')?.errors!['required']">
+                Le nom est requis.
+              </div>
+              <div *ngIf="addUserForm.get('firstName')?.errors!['minlength']">
+                Le nom doit contenir au moins 2 caractères.
+              </div>
+              <div *ngIf="addUserForm.get('firstName')?.errors!['maxlength']">
+                Le nom doit contenir au maximum 20 caractères.
+              </div>
+              
 
-            <div class="flex flex-wrap mt-4">
-              <label for="phone" class="font-bold uppercase text-xs text-gray-500">
-                Téléphone
-              </label>
-              <input
-                type="text"
-                name="phone"
-                id="phone"
-                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
-                formControlName="phone"
-                placeholder="Téléphone"
-                required
-              />
             </div>
-            <div class="flex flex-wrap mt-4">
-              <label for="address" class="font-bold uppercase text-xs text-gray-500">
-                Adresse
-              </label>
-              <input
-                type="text"
-                name="address"
-                id="address"
-                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
-                formControlName="address"
-                placeholder="Adresse"
-                required
-              />
+          </div>
+          <div class="flex flex-wrap mt-4">
+            <label for="lastName" class="font-bold uppercase text-xs text-gray-500">
+              Prénom <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+              formControlName="lastName"
+              placeholder="Prénom"
+              required
+            />
+            <div *ngIf="addUserForm.get('lastName')?.status === 'INVALID' && (addUserForm?.get('lastName')?.dirty || addUserForm?.get('lastName')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+              <div *ngIf="addUserForm.get('lastName')?.errors!['required']">
+                Le prénom est requis.
+              </div>
+              <div *ngIf="addUserForm.get('lastName')?.errors!['minlength']">
+                Le prénom doit contenir au moins 2 caractères.
+              </div>
+              <div *ngIf="addUserForm.get('lastName')?.errors!['maxlength']">
+                Le prénom doit contenir au maximum 20 caractères.
+              </div>
+              
+
             </div>
-            <div class="flex flex-wrap mt-4">
-              <label for="fonction" class="font-bold uppercase text-xs text-gray-500">
-                Fonction
-              </label>
-              <input
-                type="text"
-                name="fonction"
-                id="fonction"
-                class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
-                formControlName="fonction"
-                placeholder="Fonction"
-                required
-              />
+          </div>
+          <div class="flex flex-wrap mt-4">
+            <label for="email" class="font-bold uppercase text-xs text-gray-500">
+              Email <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+              formControlName="email"
+              placeholder="Email"
+              required
+            />
+            <div *ngIf="addUserForm.get('email')?.status === 'INVALID' && (addUserForm?.get('email')?.dirty || addUserForm?.get('email')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+              <div *ngIf="addUserForm.get('email')?.errors!['required']">
+                L'adresse email est requise.
+              </div>
+              <div *ngIf="addUserForm.get('email')?.errors!['email']">
+                L'adresse email n'est pas valide.
+              </div>
+              
+
             </div>
+          </div>
+
+          <div class="flex flex-wrap mt-4">
+            <label for="phone" class="font-bold uppercase text-xs text-gray-500">
+              Téléphone <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="phone"
+              id="phone"
+              class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+              formControlName="phone"
+              placeholder="Téléphone"
+              required
+            />
+            <div *ngIf="addUserForm.get('phone')?.status === 'INVALID' && (addUserForm?.get('phone')?.dirty || addUserForm?.get('phone')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+              <div *ngIf="addUserForm.get('phone')?.errors!['required']">
+                Le numéro de téléphone est requis.
+              </div>
+              <div *ngIf="addUserForm.get('phone')?.errors!['minlength']">
+                Le nom doit contenir 8 chiffres.
+              </div>
+              <div *ngIf="addUserForm.get('phone')?.errors!['maxlength']">
+                Le nom doit contenir 8 chiffres.
+              </div>
+              <div *ngIf="addUserForm.get('phone')?.errors!['pattern']">
+                Le numéro de téléphone doit contenir uniquement des chiffres.
+              </div>
+
+            </div>
+          </div>
+          <div class="flex flex-wrap mt-4">
+            <label for="address" class="font-bold uppercase text-xs text-gray-500">
+              Adresse <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+              formControlName="address"
+              placeholder="Adresse"
+              required
+            />
+            <div *ngIf="addUserForm.get('address')?.status === 'INVALID' && (addUserForm?.get('address')?.dirty || addUserForm?.get('address')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+              <div *ngIf="addUserForm.get('address')?.errors!['required']">
+                L'adresse est requise.
+              </div>
+              <div *ngIf="addUserForm.get('address')?.errors!['minlength']">
+                L'adresse doit contenir au moins 2 caractères.
+              </div>
+              <div *ngIf="addUserForm.get('address')?.errors!['maxlength']">
+                L'adresse doit contenir au maximum 30 caractères.
+              </div>
+
+            </div>
+          </div>
+          <div class="flex flex-wrap mt-4">
+            <label for="fonction" class="font-bold uppercase text-xs text-gray-500">
+              Fonction <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="fonction"
+              id="fonction"
+              class="border border-gray-300 p-2 w-full mt-1 px-4  rounded focus:outline-none focus:bg-white focus:border-gray-400"
+              formControlName="fonction"
+              placeholder="Fonction"
+              required
+            />
+            <div *ngIf="addUserForm.get('fonction')?.status === 'INVALID' && (addUserForm?.get('fonction')?.dirty || addUserForm?.get('fonction')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+              <div *ngIf="addUserForm.get('fonction')?.errors!['required']">
+                La fonction est requise.
+              </div>
+              <div *ngIf="addUserForm.get('fonction')?.errors!['minlength']">
+                La fonction doit contenir au moins 2 caractères.
+              </div>
+              <div *ngIf="addUserForm.get('fonction')?.errors!['maxlength']">
+                La fonction doit contenir au maximum 20 caractères.
+              </div>
+
+            </div>
+          </div>
 
             <div class="flex flex-wrap mt-4">
               <label for="role" class="font-bold uppercase text-xs text-gray-500">
-                Rôle
+                Rôle <span class="text-red-500">*</span>
               </label>
               <select
                 name="role"
@@ -138,13 +253,23 @@
                   {{ role.name }}
                 </option>
               </select>
+              <div *ngIf="addUserForm.get('role')?.status === 'INVALID' && (addUserForm?.get('role')?.dirty || addUserForm?.get('role')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="addUserForm.get('role')?.errors!['required']">
+                  Le rôle est requis.
+                </div>
+                
+  
+              </div>
             </div>
 
             <div class="flex flex-wrap mt-4"
             *ngIf="type === 'add'"
             >
               <label for="password" class="font-bold uppercase text-xs text-gray-500">
-                Mot de passe
+                Mot de passe <span class="text-red-500">*</span>
+                <span class="text-xs italic lowercase">
+                  (Par défaut : 12345678)
+                </span>
               </label>
               <input
                 type="password"
@@ -156,6 +281,14 @@
                 required
                 
               />
+              <div *ngIf="addUserForm.get('password')?.status === 'INVALID' && (addUserForm?.get('password')?.dirty || addUserForm?.get('password')?.touched)" class="text-md font-semibold mt-1  ml-2 text-red-500">
+                <div *ngIf="addUserForm.get('password')?.errors!['required']">
+                  Le mot de passe est requis.
+                </div>
+                <div *ngIf="addUserForm.get('password')?.errors!['minlength']">
+                  Le mot de passe doit contenir au moins 8 caractères.
+                </div>
+              </div>
             </div>
 
         </div>
@@ -164,19 +297,24 @@
           <button class="text-white rounded bg-gray-500 hover:bg-gray-700 font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" (click)="toggleModal()">
             Fermer
           </button>
-          <button class="bg-emerald-600 hover:bg-emerald-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="submit">
+          <button 
+          [disabled]="!addUserForm.valid || isLoading"
+          class="bg-emerald-600 hover:bg-emerald-800 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+           type="submit">
             <div *ngIf="isLoading else loader">
+              
               <app-loader
                 [height]="'h-4'"
                 [width]="'w-4'"
               ></app-loader>
               
+              
             </div>
             <ng-template #loader>
               Enregistrer
+              
             </ng-template>
           </button>
-
         </div>
       </form>
 

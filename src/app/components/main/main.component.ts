@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faUsers, faDiagramProject, faLayerGroup, faListCheck, faHouse, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faDiagramProject, faLayerGroup, faListCheck, faHouse, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-main',
@@ -14,10 +14,16 @@ export class MainComponent implements OnInit {
   faListCheck = faListCheck;
   faHouse = faHouse;
   faGear = faGear;
+  faRightFromBracket = faRightFromBracket;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  logout(): void {
+    localStorage.removeItem('user');
+    window.location.reload();
   }
 
 }

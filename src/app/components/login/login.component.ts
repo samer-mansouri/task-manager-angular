@@ -10,6 +10,7 @@ import { DataService } from '../../services/data.service';
 export class LoginComponent implements OnInit {
 
   isLoading = false;
+  isError : boolean = false;
 
   loginForm : FormGroup  = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -35,12 +36,23 @@ export class LoginComponent implements OnInit {
       new URLSearchParams({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
-    })).subscribe((res) => {
+    })).subscribe(
+    (res) => {
       console.log(res);
       localStorage.setItem("user", JSON.stringify(res));
       this.isLoading = false;
       window.location.href = "/";
-    });
+    },
+    (err) => {
+      this.isLoading = false;
+      console.log(err);
+      if (err.status === 403){
+        this.isError = true;
+
+      }
+    }
+    )
+    
   }
 
 }
